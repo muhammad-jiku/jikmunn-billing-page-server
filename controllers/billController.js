@@ -79,9 +79,28 @@ const updateBill = async (req, res) => {
   }
 };
 
+const removeBill = async (req, res) => {
+  const id = await req.params.id;
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    try {
+      await Bill.findByIdAndDelete({ _id: id });
+      res.status(200).json('Bill has been deleted...');
+    } catch (err) {
+      // console.log(err)
+      res.status(500).json({
+        message: 'There is a server side error',
+        // error: err
+      });
+    }
+  } else {
+    res.status(500).json({ message: 'There is a server side error!' });
+  }
+};
+
 // exporting modules
 module.exports = {
   addBill,
   getAllBills,
   updateBill,
+  removeBill,
 };
