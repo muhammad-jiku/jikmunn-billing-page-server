@@ -1,7 +1,5 @@
-// external imports
 const mongoose = require('mongoose');
 
-// creating schema for users
 const userSchema = mongoose.Schema(
   {
     name: {

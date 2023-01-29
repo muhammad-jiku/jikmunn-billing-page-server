@@ -9,33 +9,30 @@ const logIn = async (req, res) => {
   try {
     const oldUser = await User.findOne({ email: email });
     console.log('old user...', oldUser);
-    if (email !== oldUser?.email) {
-      return res.status(404).json({ message: 'User does not exist' });
-    } else {
-      const isPasswordCorrect = await bcrypt.compare(
-        password,
-        oldUser?.password
-      );
+    // if (email !== oldUser?.email) {
+    //   return res.status(404).json({ message: 'User does not exist' });
+    // } else {
+    const isPasswordCorrect = await bcrypt.compare(password, oldUser?.password);
 
-      if (!isPasswordCorrect)
-        return res.status(400).json({ message: 'Something went wrong' });
+    if (!isPasswordCorrect)
+      return res.status(400).json({ message: 'Something went wrong' });
 
-      const token = await jwt.sign(
-        { email: oldUser?.email },
-        process.env.ACCESS_TOKEN_SECRET,
-        {
-          expiresIn: '86400s',
-        }
-      );
+    const token = await jwt.sign(
+      { email: oldUser?.email },
+      process.env.ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: '86400s',
+      }
+    );
 
-      console.log('tokennn...', token);
+    console.log('tokennn...', token);
 
-      res.status(200).json({
-        message: 'User existence test passed successfully!!',
-        data: oldUser,
-        accessToken: token,
-      });
-    }
+    res.status(200).json({
+      message: 'User existence test passed successfully!!',
+      data: oldUser,
+      accessToken: token,
+    });
+    // }
   } catch (err) {
     // console.log(err);
     res.status(500).json({
@@ -52,32 +49,32 @@ const registration = async (req, res) => {
     const oldUser = await User.findOne({ email: email });
     console.log('old user:', oldUser);
 
-    if (email !== oldUser?.email) {
-      const hashedPassword = await bcrypt.hash(password, 12);
+    // if (email !== oldUser?.email) {
+    const hashedPassword = await bcrypt.hash(password, 12);
 
-      const newUser = await new User({
-        name: name,
-        email: email,
-        password: hashedPassword,
-      });
-      console.log('new user', newUser);
-      const savedUser = await newUser.save();
+    const newUser = await new User({
+      name: name,
+      email: email,
+      password: hashedPassword,
+    });
+    console.log('new user', newUser);
+    const savedUser = await newUser.save();
 
-      console.log(savedUser);
-      const token = await jwt.sign(
-        { email: savedUser.email },
-        process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: '86400s' }
-      );
+    console.log(savedUser);
+    const token = await jwt.sign(
+      { email: savedUser.email },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: '86400s' }
+    );
 
-      res.status(200).json({
-        message: 'User added successfully!!',
-        data: savedUser,
-        accessToken: token,
-      });
-    } else {
-      return res.status(400).json({ message: 'User already exists' });
-    }
+    res.status(200).json({
+      message: 'User added successfully!!',
+      data: savedUser,
+      accessToken: token,
+    });
+    // } else {
+    //   return res.status(400).json({ message: 'User already exists' });
+    // }
   } catch (err) {
     // console.log(err);
     res.status(500).json({
