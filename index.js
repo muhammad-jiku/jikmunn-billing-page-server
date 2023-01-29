@@ -6,7 +6,11 @@ const cors = require('cors');
 
 const databaseConnect = require('./utils/dbConnect');
 const { logIn, registration } = require('./controllers/authController');
-const { addBill, getAllBills } = require('./controllers/billController');
+const {
+  addBill,
+  getAllBills,
+  updateBill,
+} = require('./controllers/billController');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -33,6 +37,7 @@ app.use('/api/login', logIn);
 app.use('/api/registration', registration);
 app.use('/api/billing-list ', getAllBills);
 app.use('/api/add-billing', addBill);
+app.use('/api/update-billing/:id', updateBill);
 
 app.listen(port, () => {
   console.log(`server running at http://localhost:${port}`);
