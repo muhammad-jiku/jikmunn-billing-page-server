@@ -1,0 +1,7 @@
+{
+  "name": "jikmunn-billing-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Muhammad Azizul Hoque Jiku",
+  "license": "MIT"
+}
