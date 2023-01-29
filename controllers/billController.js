@@ -46,8 +46,42 @@ const getAllBills = async (req, res) => {
   }
 };
 
+const updateBill = async (req, res) => {
+  const id = await req.params.id;
+  const updatedBilldetails = await req.body;
+  const opts = { runValidators: true };
+
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    try {
+      await Bill.findByIdAndUpdate(
+        { _id: id },
+        {
+          $set: updatedBilldetails,
+        },
+        {
+          new: true,
+          opts,
+        }
+      );
+      res.status(200).json({
+        message: 'Bill details updated successfully',
+        data: updatedBilldetails,
+      });
+    } catch (err) {
+      // console.log(err)
+      res.status(500).json({
+        message: 'There is a server side error',
+        // error: err
+      });
+    }
+  } else {
+    res.status(500).json({ message: 'There is a server side error!' });
+  }
+};
+
 // exporting modules
 module.exports = {
   addBill,
   getAllBills,
+  updateBill,
 };
