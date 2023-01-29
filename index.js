@@ -1,12 +1,21 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 
 const databaseConnect = require('./utils/databaseConnet');
 
-const port = process.env.PORT || 5000;
 const app = express();
+const port = process.env.PORT || 5000;
 
-//  middleware
+// cors config
+const corsConfig = {
+  origin: true,
+  credentials: true,
+};
+
+// middleware
+app.use(cors(corsConfig));
+app.options('*', cors(corsConfig));
 app.use(express.json());
 
 // database connect
