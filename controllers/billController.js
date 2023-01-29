@@ -27,15 +27,24 @@ const addBill = async (req, res) => {
 };
 
 const getAllBills = async (req, res) => {
+  const { page = 1, limit = 10 } = await req.query;
   try {
-    const bills = await Bill.find({}).select({
-      __v: 0,
-      createdAt: 0,
-      updatedAt: 0,
-    });
+    // get total documents in the Bills collection
+    const count = await Bill.countDocuments();
+
+    const bills = await Bill.find({})
+      .limit(parseInt(limit) * 1)
+      .skip((parseInt(page) - 1) * parseInt(limit))
+      .select({
+        __v: 0,
+        createdAt: 0,
+        updatedAt: 0,
+      });
     res.status(200).json({
       message: 'All bills showing!!',
       data: bills,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
     });
   } catch (err) {
     // console.log(err)
