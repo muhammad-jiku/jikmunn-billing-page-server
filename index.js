@@ -55,7 +55,7 @@ const databaseConnect = async () => {
           if (!isPasswordCorrect)
             return res.status(400).json({ message: 'Something went wrong' });
 
-          const token = jwt.sign(
+          const token = await jwt.sign(
             { email: oldUser?.email },
             process.env.ACCESS_TOKEN_SECRET,
             {
@@ -80,7 +80,7 @@ const databaseConnect = async () => {
     });
 
     app.post('/api/registration', async (req, res) => {
-      const { username, phone, email, password } = await req.body;
+      const { name, email, password } = await req.body;
 
       try {
         const oldUser = await userCollection.find({ email: email }).toArray();
@@ -89,16 +89,15 @@ const databaseConnect = async () => {
           const hashedPassword = await bcrypt.hash(password, 12);
 
           const newUser = {
-            username: username,
-            phone: phone,
+            name: name,
             email: email,
             password: hashedPassword,
           };
 
           const savedUser = await userCollection.insertOne(newUser);
 
-          const token = jwt.sign(
-            { email: savedUser.email },
+          const token = await jwt.sign(
+            { email: savedUser?.email },
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: '86400s' }
           );
@@ -119,6 +118,14 @@ const databaseConnect = async () => {
         });
       }
     });
+
+    // app.get('/api/billing-list', async (req, res) => {});
+
+    // app.post('/api/add-billing', async (req, res) => {});
+
+    // app.put('/api/update-billing/:id', async (req, res) => {});
+
+    // app.delete('/api/delete-billing/:id', async (req, res) => {});
 
     // console.log('DB connected!');
   } finally {
