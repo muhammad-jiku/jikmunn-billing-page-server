@@ -26,7 +26,28 @@ const addBill = async (req, res) => {
   }
 };
 
+const getAllBills = async (req, res) => {
+  try {
+    const bills = await Bill.find({}).select({
+      __v: 0,
+      createdAt: 0,
+      updatedAt: 0,
+    });
+    res.status(200).json({
+      message: 'All bills showing!!',
+      data: bills,
+    });
+  } catch (err) {
+    // console.log(err)
+    res.status(500).json({
+      message: 'There is a server side error',
+      // error: err
+    });
+  }
+};
+
 // exporting modules
 module.exports = {
   addBill,
+  getAllBills,
 };
