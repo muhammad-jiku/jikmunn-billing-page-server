@@ -34,12 +34,12 @@ app.get('/', (req, res) => {
   res.status(200).json({ message: 'HELLO THERE!!' });
 });
 
-app.use('/api/login', logIn);
-app.use('/api/registration', registration);
-app.use('/api/billing-list ', getAllBills);
-app.use('/api/add-billing', addBill);
-app.use('/api/update-billing/:id', updateBill);
-app.use('/api/delete-billing/:id', removeBill);
+app.post('/api/login', logIn);
+app.post('/api/registration', registration);
+app.get('/api/billing-list ', getAllBills);
+app.post('/api/add-billing', addBill);
+app.put('/api/update-billing/:id', updateBill);
+app.delete('/api/delete-billing/:id', removeBill);
 
 app.listen(port, () => {
   console.log(`server running at http://localhost:${port}`);
