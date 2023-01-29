@@ -3,5 +3,30 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Muhammad Azizul Hoque Jiku",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongodb": "^4.13.0"
+  },
+  "description": "",
+  "scripts": {
+    "start": "node index.js",
+    "serve": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muhammad-jiku/jikmunn-billing-page-server.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/muhammad-jiku/jikmunn-billing-page-server/issues"
+  },
+  "homepage": "https://github.com/muhammad-jiku/jikmunn-billing-page-server#readme"
 }
