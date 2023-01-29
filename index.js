@@ -10,6 +10,7 @@ const {
   addBill,
   getAllBills,
   updateBill,
+  removeBill,
 } = require('./controllers/billController');
 
 const app = express();
@@ -38,6 +39,7 @@ app.use('/api/registration', registration);
 app.use('/api/billing-list ', getAllBills);
 app.use('/api/add-billing', addBill);
 app.use('/api/update-billing/:id', updateBill);
+app.use('/api/delete-billing/:id', removeBill);
 
 app.listen(port, () => {
   console.log(`server running at http://localhost:${port}`);
