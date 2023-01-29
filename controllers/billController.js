@@ -31,7 +31,7 @@ const getAllBills = async (req, res) => {
   try {
     // get total documents in the Bills collection
     const count = await Bill.countDocuments();
-
+    // console.log(page, limit);
     const bills = await Bill.find({})
       .sort({ createdAt: -1 })
       .limit(parseInt(limit) * 1)
@@ -48,7 +48,7 @@ const getAllBills = async (req, res) => {
       currentPage: page,
     });
   } catch (err) {
-    // console.log(err)
+    console.log(err);
     res.status(500).json({
       message: 'There is a server side error',
       // error: err

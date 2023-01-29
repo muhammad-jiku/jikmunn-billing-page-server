@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
 
 app.post('/api/login', logIn);
 app.post('/api/registration', registration);
-app.get('/api/billing-list ', getAllBills);
+app.get('/api/billing-list', getAllBills);
 app.post('/api/add-billing', addBill);
 app.put('/api/update-billing/:id', updateBill);
 app.delete('/api/delete-billing/:id', removeBill);
