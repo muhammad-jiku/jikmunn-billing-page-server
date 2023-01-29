@@ -7,7 +7,6 @@ const billingSchema = mongoose.Schema(
       required: [true, 'Please provide your name'],
       trim: true,
       minLength: [3, 'Name must be at least 3 letters'],
-      maxLength: [100, 'Name is too long'],
     },
     email: {
       type: String,
@@ -16,6 +15,7 @@ const billingSchema = mongoose.Schema(
     phone: {
       type: String,
       required: [true, 'Please provide your phone'],
+      maxLength: [11, 'Phone Number can not be more than 11 numbers!'],
     },
     paidAmount: {
       type: Number,

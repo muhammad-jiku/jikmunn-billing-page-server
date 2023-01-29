@@ -13,6 +13,7 @@ const {
   removeBill,
 } = require('./controllers/billController');
 const { getBillsBySearch } = require('./controllers/searchController');
+const { verifyJWT } = require('./middlewares/verifyJWT.JS');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -38,8 +39,11 @@ app.get('/', (req, res) => {
 app.post('/api/login', logIn);
 app.post('/api/registration', registration);
 app.get('/api/billing-list', getAllBills);
+// app.post('/api/add-billing', verifyJWT, addBill);
 app.post('/api/add-billing', addBill);
+// app.put('/api/update-billing/:id', verifyJWT, updateBill);
 app.put('/api/update-billing/:id', updateBill);
+// app.delete('/api/delete-billing/:id', verifyJWT, removeBill);
 app.delete('/api/delete-billing/:id', removeBill);
 app.get('/api/search/:search', getBillsBySearch);
 
