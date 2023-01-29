@@ -12,6 +12,7 @@ const {
   updateBill,
   removeBill,
 } = require('./controllers/billController');
+const { getBillsBySearch } = require('./controllers/searchController');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -40,6 +41,7 @@ app.get('/api/billing-list', getAllBills);
 app.post('/api/add-billing', addBill);
 app.put('/api/update-billing/:id', updateBill);
 app.delete('/api/delete-billing/:id', removeBill);
+app.get('/api/search/:search', getBillsBySearch);
 
 app.listen(port, () => {
   console.log(`server running at http://localhost:${port}`);
