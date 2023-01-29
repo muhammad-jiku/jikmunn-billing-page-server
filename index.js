@@ -6,7 +6,7 @@ const cors = require('cors');
 
 const databaseConnect = require('./utils/dbConnect');
 const { logIn, registration } = require('./controllers/authController');
-const { addBill } = require('./controllers/billController');
+const { addBill, getAllBills } = require('./controllers/billController');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -31,6 +31,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/login', logIn);
 app.use('/api/registration', registration);
+app.use('/api/billing-list ', getAllBills);
 app.use('/api/add-billing', addBill);
 
 app.listen(port, () => {
