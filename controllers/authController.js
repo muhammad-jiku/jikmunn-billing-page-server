@@ -1,35 +1,34 @@
-// external imports
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-// internal imports
 const User = require('../models/User');
 
-// sign-in with email
 const logIn = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password } = await req.body;
 
   try {
     const oldUser = await User.findOne({ email: email });
-
-    if (!oldUser) {
+    console.log('old user...', oldUser);
+    if (email !== oldUser?.email) {
       return res.status(404).json({ message: 'User does not exist' });
     } else {
       const isPasswordCorrect = await bcrypt.compare(
         password,
-        oldUser.password
+        oldUser?.password
       );
 
       if (!isPasswordCorrect)
         return res.status(400).json({ message: 'Something went wrong' });
 
-      const token = jwt.sign(
-        { email: oldUser.email },
+      const token = await jwt.sign(
+        { email: oldUser?.email },
         process.env.ACCESS_TOKEN_SECRET,
         {
           expiresIn: '86400s',
         }
       );
+
+      console.log('tokennn...', token);
 
       res.status(200).json({
         message: 'User existence test passed successfully!!',
@@ -46,26 +45,26 @@ const logIn = async (req, res) => {
   }
 };
 
-// sign-up with email
 const registration = async (req, res) => {
-  const { username, phone, email, password } = req.body;
+  const { name, email, password } = await req.body;
 
   try {
     const oldUser = await User.findOne({ email: email });
+    console.log('old user:', oldUser);
 
-    if (!oldUser) {
+    if (email !== oldUser?.email) {
       const hashedPassword = await bcrypt.hash(password, 12);
 
-      const newUser = new User({
-        username: username,
-        phone: phone,
+      const newUser = await new User({
+        name: name,
         email: email,
         password: hashedPassword,
       });
-
+      console.log('new user', newUser);
       const savedUser = await newUser.save();
 
-      const token = jwt.sign(
+      console.log(savedUser);
+      const token = await jwt.sign(
         { email: savedUser.email },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: '86400s' }
