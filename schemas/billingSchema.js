@@ -21,11 +21,11 @@ const billingSchema = mongoose.Schema(
       type: Number,
       required: [true, 'Please provide bill amount'],
     },
-    totalAmount: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
+    // totalAmount: {
+    //   type: Number,
+    //   required: true,
+    //   default: 0,
+    // },
   },
   { timestamps: true }
 );

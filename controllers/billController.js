@@ -33,6 +33,7 @@ const getAllBills = async (req, res) => {
     const count = await Bill.countDocuments();
 
     const bills = await Bill.find({})
+      .sort({ createdAt: -1 })
       .limit(parseInt(limit) * 1)
       .skip((parseInt(page) - 1) * parseInt(limit))
       .select({
