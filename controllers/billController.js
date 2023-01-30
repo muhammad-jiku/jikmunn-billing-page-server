@@ -27,6 +27,26 @@ const addBill = async (req, res) => {
 };
 
 const getAllBills = async (req, res) => {
+  try {
+    const bills = await Bill.find({}).sort({ createdAt: -1 }).select({
+      __v: 0,
+      createdAt: 0,
+      updatedAt: 0,
+    });
+    res.status(200).json({
+      message: 'All bills showing!!',
+      data: bills,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: 'There is a server side error',
+      // error: err
+    });
+  }
+};
+
+const getBills = async (req, res) => {
   const { page = 1, limit = 10 } = await req.query;
   try {
     // get total documents in the Bills collection
@@ -111,6 +131,7 @@ const removeBill = async (req, res) => {
 module.exports = {
   addBill,
   getAllBills,
+  getBills,
   updateBill,
   removeBill,
 };

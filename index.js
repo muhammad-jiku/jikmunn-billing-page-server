@@ -9,6 +9,7 @@ const { logIn, registration } = require('./controllers/authController');
 const {
   addBill,
   getAllBills,
+  getBills,
   updateBill,
   removeBill,
 } = require('./controllers/billController');
@@ -38,7 +39,8 @@ app.get('/', (req, res) => {
 
 app.post('/api/login', logIn);
 app.post('/api/registration', registration);
-app.get('/api/billing-list', getAllBills);
+app.get('/api/billing-lists', getAllBills);
+app.get('/api/billing-list', getBills);
 // app.post('/api/add-billing', verifyToken, addBill);
 app.post('/api/add-billing', addBill);
 // app.put('/api/update-billing/:id', verifyToken, updateBill);
