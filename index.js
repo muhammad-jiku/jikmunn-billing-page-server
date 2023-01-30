@@ -41,12 +41,9 @@ app.post('/api/login', logIn);
 app.post('/api/registration', registration);
 app.get('/api/billing-lists', getAllBills);
 app.get('/api/billing-list', getBills);
-// app.post('/api/add-billing', verifyToken, addBill);
-app.post('/api/add-billing', addBill);
-// app.put('/api/update-billing/:id', verifyToken, updateBill);
-app.put('/api/update-billing/:id', updateBill);
-// app.delete('/api/delete-billing/:id', verifyToken, removeBill);
-app.delete('/api/delete-billing/:id', removeBill);
+app.post('/api/add-billing', verifyToken, addBill);
+app.put('/api/update-billing/:id', verifyToken, updateBill);
+app.delete('/api/delete-billing/:id', verifyToken, removeBill);
 app.get('/api/search-billing-list/:search', getBillsBySearch);
 
 app.listen(port, () => {
