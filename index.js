@@ -47,7 +47,7 @@ app.post('/api/add-billing', addBill);
 app.put('/api/update-billing/:id', updateBill);
 // app.delete('/api/delete-billing/:id', verifyToken, removeBill);
 app.delete('/api/delete-billing/:id', removeBill);
-app.get('/api/search/:search', getBillsBySearch);
+app.get('/api/search-billing-list/:search', getBillsBySearch);
 
 app.listen(port, () => {
   console.log(`server running at http://localhost:${port}`);
